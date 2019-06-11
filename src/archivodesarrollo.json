@@ -1,0 +1,62 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "User",
+      "lastname": "One",
+      "email": "userOne@mail.com",
+      "username": "user-one",
+      "password": "password"
+    },
+    {
+      "id": 2,
+      "name": "User",
+      "lastname": "Two",
+      "email": "userTwo@mail.com",
+      "username": "user-two",
+      "password": "password"
+    },
+    {
+      "id": 3,
+      "name": "User",
+      "lastname": "Three",
+      "email": "userThree@mail.com",
+      "username": "user-three",
+      "password": "password"
+    },
+    {
+      "id": 4,
+      "name": "User",
+      "lastname": "Four",
+      "email": "userFour@mail.com",
+      "username": "user-four",
+      "password": "password"
+    }
+  ],
+  "items": [
+    {
+      "id": 1,
+      "name": "Item 1",
+      "description": "This is item One",
+      "value": 1
+    },
+    {
+      "id": 2,
+      "name": "Item 1",
+      "description": "This is item Two",
+      "value": 2
+    },
+    {
+      "id": 3,
+      "name": "Item 1",
+      "description": "This is item Three",
+      "value": 3
+    },
+    {
+      "id": 4,
+      "name": "Item 1",
+      "description": "This is item Four",
+      "value": 4
+    }
+  ]
+}
