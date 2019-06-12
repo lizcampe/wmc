@@ -1,51 +1,55 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import UpdateItem from '../UpdateItem/UpdateItem';
+import {deleteData} from '../../../utils/api'
 
 class Item extends Component {
-	constructor(props){
-	super (props);
-	this.state= {
-	clicked:0,
-	}
-	this.increaseClick= this.increaseClick.bind(this);
-	}
+	constructor(props) {
+		super(props);
+		this.state = {
+			clicked: 0,
+			editing: false,
+		}
 
-	shouldComponentUpdate(nextProps, nextState){
-		//Used to only update when we want it to
-	  if(this.props.lastClicked !== nextProps.lastClicked) {
-		  console.log('should, props: ', nextProps, this.props);
-		  console.log('should, state: ', nextState, this.state);
-		  return false;
-	  }
-	  	return true;
+		this.increaseClick = this.increaseClick.bind(this);
+		this.editItem = this.editItem.bind(this);
+		this.closeModal = this.closeModal.bind(this);
+		this.removeItem=this.removeItem.bind(this);
 	}
 
-componentDidUpdate(prevProps, prevState) {
-	//Usually used for loggin or sideeffects based on what changed
-	if (this.props.lastClicked !== prevProps.lastClicked) {
-		console.log('did. props; ', prevProps, this.props);
-		console.log('did, state: ', prevState, this.state);
+	increaseClick() {
+		this.setState({ clicked: this.state.clicked + 1 });
+		this.props.changeLastClicked(this.props.id);
 	}
-}
 
- increaseClick() {
- this. setState({clicked: this.state.clicked+1});
- this.props.changeLastClicked(this.props.id);
- }
+	editItem() {
+		this.setState({ editing: true });
+	}
 
- render(){
+	removeItem(){
+		deleteData('items', this.props.id).then(this.props.updateList).catch(console.log);
+		}
 
- const { id, name, description, value} = this.props;
- return (
-	<tr onClick= {this.increaseClick}>
-	  <td>{id}</td>
-	  <td>{name}</td>
-	  <td>{description}</td>
-	  <td>{value}</td>
-	  <td>{this.state.clicked}</td>
-	  <td>{this.props.id === this.props.lastClicked && 'Last Clicked'} </td>
-	 </tr>
-	);
-   }
+	closeModal() {
+		this.setState({ editing: false });
+		this.props.updateList();
+	}
+	render() {
+
+		const { id, name, description, value } = this.props;
+		return (
+			<tr onClick={this.increaseClick}>
+				<td>{id}</td>
+				<td>{name}</td>
+				<td>{description}</td>
+				<td>{value}</td>
+				<td>{this.state.clicked}</td>
+				<td>{this.props.id === this.props.lastClicked && 'Last Clicked'} </td>
+				<td onClick={this.editItem}>Edit</td>
+				<td onClick={this.removeItem}>Remove</td>
+				<UpdateItem show={this.state.editing} hide={this.closeModal} {...this.props} />
+			</tr>
+		);
+	}
 }
 
 export default Item; 
